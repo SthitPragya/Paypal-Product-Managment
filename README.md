@@ -93,6 +93,13 @@ Cart
 Cart has an ID. It is linked to Order and Customer. Each Order has one cart and each customer has a cart. A cart is
 
 
+RESPONSE CODES USED:
+
+- 200 for successful operation
+- 400 for Invalid request
+- 401 for Unauthorized access
+- 404 for Not found
+- 503 for no response from Server
 
 
 METHODS:
