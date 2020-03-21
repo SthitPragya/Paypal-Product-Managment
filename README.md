@@ -2,9 +2,9 @@
 
 LINK TO SHOPPINGKART API - https://app.swaggerhub.com/apis/SthitPragya/ShoppingKart/1.0.0#/Customer/get_Customer__id_
 
-STRUCTURE OF THE SYSTEM:
+###STRUCTURE OF THE SYSTEM:
 
-Customer
+####Customer
 
 | PARAMETERS | DESCRIPTION |
 | ------------- | ------------- |
@@ -24,7 +24,7 @@ He has a list of Orders done by him.
 There is cart that stores the Item selected but not yet ordered
 
 
-Item
+####Item
 
 | PARAMETERS | DESCRIPTION |
 | ------------- | ------------- |
@@ -39,7 +39,7 @@ Each Item has a unique ID and is linked to the Brand which manufactures it.
 It also has a seller associated which sells it
 
 
-Seller
+####Seller
 
 | PARAMETERS | DESCRIPTION |
 | ------------- | ------------- |
@@ -54,7 +54,7 @@ Seller
 Seller has an ID. He has a list of stuff he sells. He has an attribute rating which is done by the Customers.
 
 
-Brand
+####Brand
 
 | PARAMETERS | DESCRIPTION |
 | ------------- | ------------- |
@@ -68,7 +68,7 @@ Brand
 Each brand has it's unique ID and they have a list of stuff they manufacture.
 
 
-Order
+####Order
 
 | PARAMETERS | DESCRIPTION |
 | ------------- | ------------- |
@@ -82,7 +82,7 @@ Order
 Each order can be identified with it's unique ID. It has stuff which is the list of all items in that order. It has the details of when the order was shipped and whether the order is deliverd or not.
 
 
-Cart
+####Cart
 
 | PARAMETERS | DESCRIPTION |
 | ------------- | ------------- |
@@ -93,7 +93,7 @@ Cart
 Cart has an ID. It is linked to Order and Customer. Each Order has one cart and each customer has a cart. A cart is
 
 
-RESPONSE CODES USED:
+###RESPONSE CODES USED:
 
 - 200 for successful operation
 - 400 for Invalid request
@@ -102,7 +102,7 @@ RESPONSE CODES USED:
 - 503 for no response from Server
 
 
-METHODS:
+###METHODS:
 
 | METHOD  | PATH | DESCRIPTION |
 | ------------- | ------------- | --------- |
