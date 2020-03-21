@@ -7,6 +7,7 @@ STRUCTURE OF THE SYSTEM:
 CUSTOMER
 
 | PARAMETERS | DESCRIPTION |
+| ------------- | ------------- |
 | id | ID of the Customer |
 | name | Name of the Customer |
 | username | Username for authentication |
@@ -19,6 +20,7 @@ CUSTOMER
 Item
 
 | PARAMETERS | DESCRIPTION |
+| ------------- | ------------- |
 | id | ID of the Item |
 | name | Name of the Item |
 | rating | Average rating by Customers |
@@ -29,6 +31,7 @@ Item
 Seller
 
 | PARAMETERS | DESCRIPTION |
+| ------------- | ------------- |
 | id | ID of the Seller |
 | name | Name of the Seller |
 | homePage | Website of the Seller |
@@ -40,6 +43,7 @@ Seller
 Brand
 
 | PARAMETERS | DESCRIPTION |
+| ------------- | ------------- |
 | id | ID of the Brand |
 | name | Name of the Brand |
 | homePage | Website of the Brand |
@@ -50,6 +54,7 @@ Brand
 Order
 
 | PARAMETERS | DESCRIPTION |
+| ------------- | ------------- |
 | id | ID of the Order |
 | stuff | Items in the Order |
 | shipDate | Date when the order was shipped |
@@ -57,9 +62,10 @@ Order
 | complete | Order complete or not |
 
 
-Order
+Cart
 
 | PARAMETERS | DESCRIPTION |
+| ------------- | ------------- |
 | id | ID of the Cart |
 | stuff | Items in the Cart |
 
