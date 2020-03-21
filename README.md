@@ -6,7 +6,7 @@ LINK TO SHOPPINGKART API - https://app.swaggerhub.com/apis/SthitPragya/ShoppingK
 METHODS:
 
 | METHOD  | PATH | DESCRIPTION |
-| ------------- | ------------- |
+| ------------- | ------------- | --------- |
 | GET  | /Item  | Fetch all Item Details |
 | POST  | /Item  | Add a new Item |
 | GET  | /Item/id  | Fetch items based on a query |
