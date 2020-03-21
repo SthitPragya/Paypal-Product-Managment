@@ -2,6 +2,67 @@
 
 LINK TO SHOPPINGKART API - https://app.swaggerhub.com/apis/SthitPragya/ShoppingKart/1.0.0#/Customer/get_Customer__id_
 
+STRUCTURE OF THE SYSTEM:
+
+CUSTOMER
+
+| PARAMETERS | DESCRIPTION |
+| id | ID of the Customer |
+| name | Name of the Customer |
+| username | Username for authentication |
+| password | Password for authentication |
+| address | Address of the Customer |
+| order | Order history of the Customer |
+| phone | Phone number of the Customer |
+
+
+Item
+
+| PARAMETERS | DESCRIPTION |
+| id | ID of the Item |
+| name | Name of the Item |
+| rating | Average rating by Customers |
+| brand | Brand that make this product |
+| seller | Seller that sells this product |
+
+
+Seller
+
+| PARAMETERS | DESCRIPTION |
+| id | ID of the Seller |
+| name | Name of the Seller |
+| homePage | Website of the Seller |
+| phone | Phone number of the Seller |
+| rating | Average rating by Customers |
+| stuff | Items sold by the Seller |
+
+
+Brand
+
+| PARAMETERS | DESCRIPTION |
+| id | ID of the Brand |
+| name | Name of the Brand |
+| homePage | Website of the Brand |
+| phone | Phone number of the Brand |
+| stuff | Items sold by the Brand |
+
+
+Order
+
+| PARAMETERS | DESCRIPTION |
+| id | ID of the Order |
+| stuff | Items in the Order |
+| shipDate | Date when the order was shipped |
+| status | current status of order |
+| complete | Order complete or not |
+
+
+Order
+
+| PARAMETERS | DESCRIPTION |
+| id | ID of the Cart |
+| stuff | Items in the Cart |
+
 
 METHODS:
 
