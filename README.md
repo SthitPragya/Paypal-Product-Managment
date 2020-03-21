@@ -48,7 +48,7 @@ It also has a seller associated which sells it
 | homePage | Website of the Seller |
 | phone | Phone number of the Seller |
 | rating | Average rating by Customers |
-| stuff | Items sold by the Seller |
+| stuff | List of Items sold by the Seller of a Brand |
 
 
 Seller has an ID. He has a list of stuff he sells. He has an attribute rating which is done by the Customers.
@@ -108,8 +108,7 @@ Cart has an ID. It is linked to Order and Customer. Each Order has one cart and 
 | ------------- | ------------- | --------- |
 | GET  | /Item  | Fetch all Item Details |
 | POST  | /Item  | Add a new Item |
-| GET  | /Item/id  | Fetch items based on a query |
-| GET  | /Item/name  | Fetch items based on name |
+| GET  | /Item/search  | Fetch items based on a query |
 | GET  | /Item/{id}  | Fetch Item detail by ID |
 | PUT  | /Item/{id}  | Update details of an item by ID |
 | DELETE  | /Item/{id}  | Remove an item by ID |
@@ -135,7 +134,7 @@ Cart has an ID. It is linked to Order and Customer. Each Order has one cart and 
 | GET | /Brand/{id}/stuff | Fetch all items manufactured by a Brand by ID |
 | GET  | /Order  | Fetch all Orders |
 | POST  | /Order  | Add a new Order |
-| GET  | /Order/id  | Fetch Orders based on a query |
+| GET  | /Order/search  | Fetch Orders based on a query |
 | GET  | /Order/{id}  | Fetch Order details by ID |
 | PUT  | /Order/{id}  | Update Order details by ID |
 | DELETE  | /Order/{id}  | Delete Order by ID |
@@ -144,3 +143,12 @@ Cart has an ID. It is linked to Order and Customer. Each Order has one cart and 
 | PUT | /* | Handle all Invalid URL's of PUT |
 | POST | /* | Handle all Invalid URL's of POST |
 | DELETE | /* | Handle all Invalid URL's of DELETE |
+| GET | /Cart | Fetch details of all Carts |
+| POST | /Cart | Add a new Cart |
+| GET | /Cart/search | Fetch carts based on a query |
+| GET | /Cart/{id} | Fetch Cart details by ID |
+| PUT | /Cart/{id} | Update Cart items by ID |
+| DELETE | /Cart/{id} | Delete Cart by ID |
+| GET | /Cart/{id}/stuff | Fetch items in Cart by ID |
+| PUT | /Cart/{id}/stuff | Update Cart items by ID |
+| DELETE | /Cart/{id}/stuff | Delete items from Cart by ID |
