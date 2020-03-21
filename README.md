@@ -1,7 +1,8 @@
 # Paypal-Product-Managment
 
 LINK TO SHOPPINGKART API - https://app.swaggerhub.com/apis/SthitPragya/ShoppingKart/1.0.0
-'\n' LINK TO API DOCUMENTATION - https://app.swaggerhub.com/apis-docs/SthitPragya/ShoppingKart/1.0.0
+
+LINK TO API DOCUMENTATION - https://app.swaggerhub.com/apis-docs/SthitPragya/ShoppingKart/1.0.0
 
 ### STRUCTURE OF THE SYSTEM:
 
