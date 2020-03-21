@@ -53,7 +53,7 @@ It also has a seller associated which sells it
 | stuff | List of Items sold by the Seller of a Brand |
 
 
-Seller has an ID. He has a list of stuff he sells. He has an attribute rating which is done by the Customers.
+Seller has an ID. He has a list of stuff he sells. He has an attribute rating which is done by the Customers. He can choose to sell a item only after a brand adds it. He does not has the privilege to create items.
 
 
 #### brands
@@ -67,7 +67,7 @@ Seller has an ID. He has a list of stuff he sells. He has an attribute rating wh
 | stuff | Items sold by the Brand |
 
 
-Each brand has it's unique ID and they have a list of stuff they manufacture.
+Each brand has it's unique ID and they have a list of stuff they manufacture. They can decide which items they manufacture which can be sold by seller.
 
 
 #### orders
