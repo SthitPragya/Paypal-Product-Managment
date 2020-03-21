@@ -4,7 +4,7 @@ LINK TO SHOPPINGKART API - https://app.swaggerhub.com/apis/SthitPragya/ShoppingK
 
 ### STRUCTURE OF THE SYSTEM:
 
-#### Customer
+#### customers
 
 | PARAMETERS | DESCRIPTION |
 | ------------- | ------------- |
@@ -24,7 +24,7 @@ He has a list of Orders done by him.
 There is cart that stores the Item selected but not yet ordered
 
 
-#### Item
+#### items
 
 | PARAMETERS | DESCRIPTION |
 | ------------- | ------------- |
@@ -39,7 +39,7 @@ Each Item has a unique ID and is linked to the Brand which manufactures it.
 It also has a seller associated which sells it
 
 
-#### Seller
+#### sellers
 
 | PARAMETERS | DESCRIPTION |
 | ------------- | ------------- |
@@ -54,7 +54,7 @@ It also has a seller associated which sells it
 Seller has an ID. He has a list of stuff he sells. He has an attribute rating which is done by the Customers.
 
 
-#### Brand
+#### brands
 
 | PARAMETERS | DESCRIPTION |
 | ------------- | ------------- |
@@ -68,7 +68,7 @@ Seller has an ID. He has a list of stuff he sells. He has an attribute rating wh
 Each brand has it's unique ID and they have a list of stuff they manufacture.
 
 
-#### Order
+#### orders
 
 | PARAMETERS | DESCRIPTION |
 | ------------- | ------------- |
@@ -82,7 +82,7 @@ Each brand has it's unique ID and they have a list of stuff they manufacture.
 Each order can be identified with it's unique ID. It has stuff which is the list of all items in that order. It has the details of when the order was shipped and whether the order is deliverd or not.
 
 
-#### Cart
+#### carts
 
 | PARAMETERS | DESCRIPTION |
 | ------------- | ------------- |
@@ -92,6 +92,8 @@ Each order can be identified with it's unique ID. It has stuff which is the list
 
 Cart has an ID. It is linked to Order and Customer. Each Order has one cart and each customer has a cart. A cart is
 
+
+**ADMIN** can view, edit and delete items, customers, orders, carts, sellers, brands. 
 
 ### RESPONSE CODES USED:
 
@@ -106,49 +108,49 @@ Cart has an ID. It is linked to Order and Customer. Each Order has one cart and 
 
 | METHOD  | PATH | DESCRIPTION |
 | ------------- | ------------- | --------- |
-| GET  | /Item  | Fetch all Item Details |
-| POST  | /Item  | Add a new Item |
-| GET  | /Item/search  | Fetch items based on a query |
-| GET  | /Item/{id}  | Fetch Item detail by ID |
-| PUT  | /Item/{id}  | Update details of an item by ID |
-| DELETE  | /Item/{id}  | Remove an item by ID |
-| GET  | /Customer  | Fetch all Customer Details |
-| POST  | /Customer  | Add a new Customer |
-| GET  | /Customer/login  | Existing Customer login |
-| GET  | /Customer/logout  | Customer account logout |
-| GET  | /Customer/{id}  | Fetch Customer details by ID |
-| PUT  | /Customer/{id}  | Update Customer details by ID |
-| DELETE  | /Customer/{id}  | Remove Customer account by ID |
-| GET | /Customer/{id}/order | Fetch all Orders of a Customer by ID |
-| GET  | /Seller  | Fetch all Sellers |
-| POST  | /Seller  | Add a Seller |
-| GET  | /Seller/{id}  | Get Seller details by ID |
-| PUT  | /Seller/{id}  | Update Seller detail by ID |
-| DELETE  | /Seller/{id}  | Remove Seller by ID |
-| GET | /Seller/{id}/stuff | Fetch all items sold by a Seller by ID |
-| GET  | /Brand  | Fetch all Brands |
-| POST  | /Brand  | Add a new Brand |
-| GET  | /Brand/{id}  | Fetch Brand details by ID |
-| PUT  | /Brand/{id}  | Update Brand details by ID |
-| DELETE  | /Brand/{id}  | Remove Brand by ID |
-| GET | /Brand/{id}/stuff | Fetch all items manufactured by a Brand by ID |
-| GET  | /Order  | Fetch all Orders |
-| POST  | /Order  | Add a new Order |
-| GET  | /Order/search  | Fetch Orders based on a query |
-| GET  | /Order/{id}  | Fetch Order details by ID |
-| PUT  | /Order/{id}  | Update Order details by ID |
-| DELETE  | /Order/{id}  | Delete Order by ID |
-| GET | /Order/{id}/stuff | Fetch all items from a Order by ID |
+| GET  | /items  | Fetch all Item Details |
+| POST  | /items  | Add a new Item |
+| GET  | /items/search  | Fetch items based on a query |
+| GET  | /items/{id}  | Fetch Item detail by ID |
+| PUT  | /items/{id}  | Update details of an item by ID |
+| DELETE  | /items/{id}  | Remove an item by ID |
+| GET  | /customers  | Fetch all Customer Details |
+| POST  | /customers  | Add a new Customer |
+| GET  | /customers/login  | Existing Customer login |
+| GET  | /customers/logout  | Customer account logout |
+| GET  | /customers/{id}  | Fetch Customer details by ID |
+| PUT  | /customers/{id}  | Update Customcr details by ID |
+| DELETE  | /customers/{id}  | Remove Custcmer account by ID |
+| GET | /customers/{id}/order | Fetch allcOrders of a Customer by ID |
+| GET  | /sellers  | Fetch all Sellers c
+| POST  | /sellers  | Add a Seller c
+| GET  | /sellers/{id}  | Get Sellec details by ID |
+| PUT  | /sellers/{id}  | Update Sellec detail by ID |
+| DELETE  | /sellers/{id}  | Removc Seller by ID |
+| GET | /sellers/{id}/stuff | Fetch all items sold by a Seller by ID |
+| GET  | /brands  | Fetch all Brands |
+| POST  | /brands  | Add a new Brand |
+| GET  | /brands/{id}  | Fetch Brand details by ID |
+| PUT  | /brands/{id}  | Update Brand details by ID |
+| DELETE  | /brands/{id}  | Remove Brand by ID |
+| GET | /brands/{id}/stuff | Fetch all items manufactured by a Brand by ID |
+| GET  | /orders  | Fetch all Orders |
+| POST  | /orders  | Add a new Order |
+| GET  | /orders/search  | Fetch Orders based on a query |
+| GET  | /orders/{id}  | Fetch Order details by ID |
+| PUT  | /orders/{id}  | Update Order details by ID |
+| DELETE  | /orders/{id}  | Delete Order by ID |
+| GET | /orders/{id}/stuff | Fetch all items from a Order by ID |
+| GET | /carts | Fetch details of all Carts |
+| POST | /carts | Add a new Cart |
+| GET | /carts/search | Fetch carts based on a query |
+| GET | /carts/{id} | Fetch Cart details by ID |
+| PUT | /carts/{id} | Update Cart items by ID |
+| DELETE | /carts/{id} | Delete Cart by ID |
+| GET | /carts/{id}/stuff | Fetch items in Cart by ID |
+| PUT | /carts/{id}/stuff | Update Cart items by ID |
+| DELETE | /carts/{id}/stuff | Delete items from Cart by ID |
 | GET | /* | Handle all Invalid URL's of GET|
 | PUT | /* | Handle all Invalid URL's of PUT |
 | POST | /* | Handle all Invalid URL's of POST |
 | DELETE | /* | Handle all Invalid URL's of DELETE |
-| GET | /Cart | Fetch details of all Carts |
-| POST | /Cart | Add a new Cart |
-| GET | /Cart/search | Fetch carts based on a query |
-| GET | /Cart/{id} | Fetch Cart details by ID |
-| PUT | /Cart/{id} | Update Cart items by ID |
-| DELETE | /Cart/{id} | Delete Cart by ID |
-| GET | /Cart/{id}/stuff | Fetch items in Cart by ID |
-| PUT | /Cart/{id}/stuff | Update Cart items by ID |
-| DELETE | /Cart/{id}/stuff | Delete items from Cart by ID |
