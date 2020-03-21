@@ -1,0 +1,1661 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/SthitPragya/ShoppingKart/1.0.0
+info:
+  description: This is a simple API
+  version: "1.0.0"
+  title: Simple Inventory API
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: Admins
+    description: Secured Admin-only calls
+  - name: items
+    description: Get, Add, Modify and Delete items
+  - name: customers
+    description: Get, Add, Modify and Delete customers
+  - name: sellers
+    description: Get, Add, Modify and Delete sellers
+  - name: brands
+    description: Get, Add, Modify and Delete brands
+paths:
+  /items:
+    get:
+      tags:
+        - items
+        - Admins
+      summary: Get all items
+      description: Get array of all items
+      operationId: getallitems
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/items'
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    post:
+      tags:
+        - items
+        - Admins
+        - brands
+      summary: Add a new items in the inventory
+      operationId: additems
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+        409:
+          description: items already exists
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+      requestBody:
+        $ref: '#/components/requestBodies/items'
+  /items/search:
+    get:
+      tags:
+        - items
+        - customers
+      summary: searches inventory
+      operationId: searchInventory
+      description: |
+        By passing in the appropriate options, you can search for
+        available inventory in the system
+      parameters:
+        - in: query
+          name: searchString
+          description: pass an optional search string for looking up inventory
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: skip
+          description: number of records to skip for pagination
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: limit
+          description: maximum number of records to return
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 50
+      responses:
+        '200':
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/items'
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+
+  '/items/{id}':
+    get:
+      tags:
+        - items
+      summary: get items by itemsId
+      operationId: getitemsById
+      parameters:
+        - name: id
+          in: path
+          description: The items that needs to be fetched.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/items'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/items'
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    put:
+      tags:
+        - items
+        - brands
+      summary: Updates an items
+      operationId: updateitemswithid
+      parameters:
+        - name: id
+          in: path
+          description: ID of items that needs to be updated
+          required: true
+          schema:
+            $ref: "#/components/schemas/items/properties/id"
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/items"
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    delete:
+      tags:
+        - items
+        - brands
+      summary: Deletes items profile
+      operationId: deleteitemswithid
+      parameters:
+        - name: id
+          in: path
+          description: items ID to delete
+          required: true
+          schema:
+            $ref: "#/components/schemas/items/properties/id"
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+  
+  /customers:
+    get:
+      tags:
+        - customers
+        - Admins
+      summary: Get all customers Details
+      description: Get array of all customers Profile
+      operationId: getallcustomers
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/customers'
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    post:
+      tags:
+        - customers
+        - Admins
+      summary: Create customers
+      description: Create an account for new customers.
+      operationId: createcustomers
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+        409:
+          description: items already exists
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/customers'
+        description: Created customers object
+        required: true
+        
+  /customers/login:
+    get:
+      tags:
+        - customers
+      summary: Logs customers into the system
+      operationId: logincustomers
+      parameters:
+        - name: username
+          in: query
+          description: The user name for login
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: The password for login in clear text
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              description: date in UTC when token expires
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/json:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
+        '400':
+          description: Invalid username/password supplied
+  /customers/logout:
+    get:
+      tags:
+        - customers
+      summary: Logs out current logged in customers session
+      operationId: logoutcustomers
+      responses:
+        default:
+          description: successful operation
+      
+  '/customers/{id}':
+    get:
+      tags:
+        - customers
+      summary: Get customers from ID
+      parameters:
+        - name: id
+          in: path
+          description: The customers account that needs to be fetched.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customers'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/customers'
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    put:
+      tags:
+        - customers
+      summary: Updates an customers
+      operationId: updatecustomerswithid
+      parameters:
+        - name: id
+          in: path
+          description: ID of customers that needs to be updated
+          required: true
+          schema:
+            $ref: "#/components/schemas/customers/properties/id"
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/customers"
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    delete:
+      tags:
+        - customers
+      summary: Deletes customers profile
+      operationId: deletecustomerswithid
+      parameters:
+        - name: id
+          in: path
+          description: customers ID to delete
+          required: true
+          schema:
+            $ref: "#/components/schemas/customers/properties/id"
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+  /customers/{id}/orders:
+    get:
+      tags:
+        - customers
+      summary: Get orders of a customers
+      operationId: getcustomersorders
+      description: Get list of orders
+      parameters:
+        - name: id
+          in: path
+          description: "ID of the customers"
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - in: query
+          name: limitc
+          description: maximum number of records to return
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 50
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/orders'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+            
+  /orders:
+    get:
+      tags:
+        - orders
+        - Admins
+      summary: Get all orders
+      description: Get array of all orders
+      operationId: getallorders
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/orders'
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    post:
+      tags:
+        - orders
+        - Admins
+      summary: Add a new orders
+      operationId: addorders
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+        409:
+          description: orders already exists
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+      requestBody:
+        $ref: '#/components/requestBodies/items'
+  /orders/search:
+    get:
+      tags:
+        - orders
+      summary: searches orders history
+      operationId: searchordershistory
+      description: |
+        By passing in the appropriate options, you can search for
+        past orders in the system
+      parameters:
+        - in: query
+          name: searchString
+          description: pass an optional search string for looking up orders
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: skip
+          description: number of records to skip for pagination
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: limit
+          description: maximum number of records to return
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 50
+      responses:
+        '200':
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/orders'
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+  '/orders/{id}':
+    get:
+      tags:
+        - orders
+        - customers
+      summary: get orders by ordersId
+      operationId: getordersById
+      parameters:
+        - name: id
+          in: path
+          description: The orders details that needs to be fetched.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orders'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/orders'
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    put:
+      tags:
+        - orders
+      summary: Updates an orders
+      operationId: updateorderswithid
+      parameters:
+        - name: id
+          in: path
+          description: ID of orders that needs to be updated
+          required: true
+          schema:
+            $ref: "#/components/schemas/orders/properties/id"
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/orders"
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    delete:
+      tags:
+        - orders
+      summary: Deletes orders profile
+      operationId: deleteorderswithid
+      parameters:
+        - name: id
+          in: path
+          description: orders ID to delete
+          required: true
+          schema:
+            $ref: "#/components/schemas/orders/properties/id"
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+  /orders/{id}/stuff:  
+    get:
+      tags:
+        - orders
+        - customers
+        - sellers
+      summary: Get items of an orders
+      operationId: getordersitems
+      description: Get list of items in a orders
+      parameters:
+        - name: id
+          in: path
+          description: "ID of the orders"
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/carts'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+  
+  /carts:
+    get:
+      tags:
+        - carts
+        - Admins
+      summary: Get all carts
+      description: Get array of all carts
+      operationId: getallcarts
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/carts'
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    post:
+      tags:
+        - carts
+        - Admins
+      summary: Add a new carts
+      operationId: addcarts
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+        409:
+          description: carts already exists
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+      requestBody:
+        $ref: '#/components/requestBodies/carts'
+  /carts/search:
+    get:
+      tags:
+        - carts
+      summary: searches carts
+      operationId: searchcarts
+      description: |
+        By passing in the appropriate options, you can search for
+        past orders in the system
+      parameters:
+        - in: query
+          name: searchString
+          description: pass an optional search string for looking up carts
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: skip
+          description: number of records to skip for pagination
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - in: query
+          name: limit
+          description: maximum number of carts to return
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 50
+      responses:
+        '200':
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/carts'
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+  '/carts/{id}':
+    get:
+      tags:
+        - carts
+        - customers
+      summary: get carts by cartsId
+      operationId: getcartsById
+      parameters:
+        - name: id
+          in: path
+          description: The carts details that needs to be fetched.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/carts'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/carts'
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    put:
+      tags:
+        - carts
+        - customers
+      summary: Updates an carts
+      operationId: updatecartswithid
+      parameters:
+        - name: id
+          in: path
+          description: ID of carts that needs to be updated
+          required: true
+          schema:
+            $ref: "#/components/schemas/carts/properties/id"
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/carts"
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    delete:
+      tags:
+        - carts
+        - customers
+      summary: Deletes carts profile
+      operationId: deletecartswithid
+      parameters:
+        - name: id
+          in: path
+          description: carts ID to delete
+          required: true
+          schema:
+            $ref: "#/components/schemas/carts/properties/id"
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+  /carts/{id}/stuff:
+    get:
+      tags:
+        - carts
+        - customers
+        - sellers
+      summary: Get items of an carts
+      operationId: getcartsitems
+      description: Get list of items in a carts
+      parameters:
+        - name: id
+          in: path
+          description: "ID of the carts"
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/carts/properties/stuff'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags:
+        - carts
+        - customers
+      summary: Updates the stuff in carts by ID
+      operationId: updatestuffincartswithid
+      parameters:
+        - name: id
+          in: path
+          description: ID of carts whose stuff needs to be updated
+          required: true
+          schema:
+            $ref: "#/components/schemas/carts/properties/id"
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/carts/properties/stuff"
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    delete:
+      tags:
+        - carts
+        - customers
+      summary: Deletes stuff from carts
+      operationId: deletestufffromcartswithid
+      parameters:
+        - name: id
+          in: path
+          description: Stuff to delete from carts by ID
+          required: true
+          schema:
+            $ref: "#/components/schemas/carts/properties/id"
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+  
+  /sellers:
+    get:
+      tags:
+        - Admins
+      summary: Get all sellers Details
+      description: Get array of all sellers Profile
+      operationId: getallsellers
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/sellers'
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    post:
+      tags:
+        - sellers
+        - Admins
+      summary: Create sellers
+      description: Create an account for new sellers.
+      operationId: createsellers
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+        409:
+          description: items already exists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sellers'
+        description: Created sellers object
+        required: true
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+  '/sellers/{id}':
+    get:
+      tags:
+        - sellers
+      summary: View sellers by id
+      description: returns the data of a single sellers
+      operationId: getsellersById
+      parameters:
+        - name: id
+          in: path
+          description: ID of sellers to return
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation for sellers
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/sellers"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/sellers"
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    put:
+      tags:
+        - sellers
+      summary: Updates a sellers's own profile
+      operationId: updatesellersWithForm
+      parameters:
+        - name: id
+          in: path
+          description: ID of sellers that needs to be updated
+          required: true
+          schema:
+            $ref: "#/components/schemas/sellers/properties/id"
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/sellers"
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+                
+    delete:
+      tags:
+        - sellers
+      summary: Deletes one's own profile
+      operationId: deletesellers
+      parameters:
+        - name: id
+          in: path
+          description: sellers id to delete
+          required: true
+          schema:
+            $ref: "#/components/schemas/sellers/properties/id"
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+  /sellers/{id}/stuff:  
+    get:
+      tags:
+        - sellers
+      summary: Get items sold by a sellers
+      operationId: getsellersitems
+      description: Get list of items sold by sellers
+      parameters:
+        - name: id
+          in: path
+          description: "ID of the sellers"
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - in: query
+          name: limit
+          description: maximum number of items to return
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 50
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/items'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+  
+  /brands:
+    get:
+      tags:
+        - brands
+        - customers
+        - Admins
+        - sellers
+      summary: Get all brands Details
+      description: Get array of all brands Profile
+      operationId: getallbrands
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/brands'
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    post:
+      tags:
+        - brands
+        - Admins
+      summary: Create brands
+      description: Create an account for new brands.
+      operationId: createbrands
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+        409:
+          description: items already exists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/brands'
+        description: Created sellers object
+        required: true
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+  '/brands/{id}':
+    get:
+      tags:
+        - brands
+        - sellers
+        - customers
+      summary: View brands by id
+      description: returns the data of a single brands
+      operationId: getbrandsById
+      parameters:
+        - name: id
+          in: path
+          description: ID of brands to return
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation for brands
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/brands"
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/brands"
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    put:
+      tags:
+        - brands
+      summary: Updates a brands's own profile
+      operationId: updatebrandsWithForm
+      parameters:
+        - name: id
+          in: path
+          description: ID of brands that needs to be updated
+          required: true
+          schema:
+            $ref: "#/components/schemas/brands/properties/id"
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/brands"
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+                
+    delete:
+      tags:
+        - brands
+      summary: Deletes one's own profile
+      operationId: deletebrands
+      parameters:
+        - name: id
+          in: path
+          description: brands id to delete
+          required: true
+          schema:
+            $ref: "#/components/schemas/brands/properties/id"
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+  /brands/{id}/stuff:  
+    get:
+      tags:
+        - brands
+        - sellers
+        - customers
+      summary: Get items manufactured by a brands
+      operationId: getbrandsitems
+      description: Get list of items manufactured by brands
+      parameters:
+        - name: id
+          in: path
+          description: "ID of the brands"
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - in: query
+          name: limit
+          description: maximum number of items to return
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 50
+      responses:
+        200:
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/items'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags:
+        - brands
+      summary: Updates a brands's items
+      operationId: updatebrandsitems
+      parameters:
+        - name: id
+          in: path
+          description: ID of brands that needs to be updated
+          required: true
+          schema:
+            $ref: "#/components/schemas/brands/properties/id"
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/brands/properties/stuff"
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+    delete:
+      tags:
+        - brands
+      summary: Delete items of A brands
+      operationId: deletebrandsitems
+      parameters:
+        - name: id
+          in: path
+          description: brands id to delete
+          required: true
+          schema:
+            $ref: "#/components/schemas/brands/properties/id"
+      responses:
+        400:
+          description: Invalid request
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        503:
+          $ref: '#/components/responses/ServerDown'
+      security:
+        - shoppingkart_auth:
+            - 'write:items'
+            - 'read:items'
+          
+  /*:
+    get:
+      tags:
+      - miscellaneous
+      summary: Any Invalid URL
+      description: Any URL which is not handled above
+      operationId: Invalidurlget
+      responses:
+        404:
+          $ref: '#/components/responses/NotFound'
+                
+    put:
+      tags:
+      - miscellaneous
+      summary: Any invalid URL
+      description: Any URL which is not handled above
+      operationId: Invalidurlput
+      responses:
+        404:
+          $ref: '#/components/responses/NotFound'
+                
+    post:
+      tags:
+      - miscellaneous
+      summary: Any invalid URL
+      description: Any URL which is not handled above
+      operationId: Invalidurlpost
+      responses:
+        404:
+          $ref: '#/components/responses/NotFound'
+                
+    delete:
+      tags:
+      - miscellaneous
+      summary: Any invalid URL
+      description: Any URL which is not handled above
+      operationId: Invalidurldelete
+      responses:
+        404:
+          $ref: '#/components/responses/NotFound'
+            
+components:
+  schemas:
+    customers:
+      type: object
+      required:
+        - name
+        - id
+        - address
+        - phone
+        - username
+        - password
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: C23423
+        name:
+          type: string
+          example: Mark
+        username:
+          type: string
+          example: markjhonson
+        password:
+          type: string
+          example: test123
+        address:
+          type: string
+          example: New York
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/orders'
+        carts:
+            $ref: '#/components/schemas/carts'
+        phone:
+          type: string
+          example: 983734782
+      xml:
+        name: customers
+    items:
+      type: object
+      required:
+        - id
+        - name
+        - brands
+        - sellers
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        name:
+          type: string
+          example: Laptop
+        rating:
+          type: integer
+        brands:
+          $ref: '#/components/schemas/brands'
+        sellers:
+          $ref: '#/components/schemas/sellers'
+      xml:
+        name: items
+    sellers:
+      required:
+        - id
+        - name
+        - phone
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          example: ACME Corporation
+        homePage:
+          type: string
+          format: url
+          example: 'https://www.acme-corp.com'
+        phone:
+          type: string
+          example: 408-867-5309
+        rating:
+          type: integer
+        stuff:
+          type: array
+          items:
+            properties:
+              items:
+                $ref: '#/components/schemas/brands/properties/stuff'
+      xml:
+        name: sellers
+    brands:
+      required:
+        - name
+        - id
+        - phone
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          example: Dell
+        homePage:
+          type: string
+          format: url
+          example: 'https://www.dell.com'
+        phone:
+          type: string
+          example: 408-867-5309
+        stuff:
+          type: array
+          items:
+            $ref: '#/components/schemas/items/properties/id'
+      xml:
+        name: brands
+    orders:
+      required:
+        - id
+        - customers
+        - carts
+        - status
+        - complete
+      type: object
+      properties:
+        id:
+          type: string
+        stuff:
+          $ref: '#/components/schemas/carts'
+        shipDate:
+          type: string
+          format: date-time
+        status:
+          type: string
+          description: orders Status
+          enum:
+            - placed
+            - approved
+            - delivered
+        complete:
+          type: boolean
+          default: false
+      xml:
+        name: orders
+    carts:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: integer
+        stuff:
+          type: array
+          items:
+            type: object
+            properties:
+              items:
+                $ref: '#/components/schemas/items'
+              quantity:
+                type: integer
+      xml:
+        name: carts
+  requestBodies:
+    carts:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/carts'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/carts'
+      description: items that needs to be added to the Inventory
+      required: true
+    items:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/items'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/items'
+      description: items that needs to be added to the Inventory
+      required: true
+  securitySchemes:
+    shoppingkart_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: 'http://ShoppingKart.swagger.io/oauth/dialog'
+          scopes:
+            'write:items': modify items in your account
+            'read:items': read your items
+  
+  
+  responses:
+    ServerDown:
+      description: "Server is Unavailable"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message: 
+                type: string
+                example: Server is Down
+
+    NotFound:
+      description: The requested page was not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Page not found
+    Unauthorized:
+      description: Unauthorized access
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Permission Denied
