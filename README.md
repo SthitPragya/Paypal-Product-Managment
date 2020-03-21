@@ -4,7 +4,7 @@ LINK TO SHOPPINGKART API - https://app.swaggerhub.com/apis/SthitPragya/ShoppingK
 
 STRUCTURE OF THE SYSTEM:
 
-CUSTOMER
+Customer
 
 | PARAMETERS | DESCRIPTION |
 | ------------- | ------------- |
@@ -14,7 +14,14 @@ CUSTOMER
 | password | Password for authentication |
 | address | Address of the Customer |
 | order | Order history of the Customer |
+| cart | Items currently in cart of the Customer |
 | phone | Phone number of the Customer |
+
+
+Customer has to login through username and password
+His account has a record of his name, id, address and phone number
+He has a list of Orders done by him.
+There is cart that stores the Item selected but not yet ordered
 
 
 Item
@@ -26,6 +33,10 @@ Item
 | rating | Average rating by Customers |
 | brand | Brand that make this product |
 | seller | Seller that sells this product |
+
+
+Each Item has a unique ID and is linked to the Brand which manufactures it.
+It also has a seller associated which sells it
 
 
 Seller
@@ -40,6 +51,9 @@ Seller
 | stuff | Items sold by the Seller |
 
 
+Seller has an ID. He has a list of stuff he sells. He has an attribute rating which is done by the Customers.
+
+
 Brand
 
 | PARAMETERS | DESCRIPTION |
@@ -49,6 +63,9 @@ Brand
 | homePage | Website of the Brand |
 | phone | Phone number of the Brand |
 | stuff | Items sold by the Brand |
+
+
+Each brand has it's unique ID and they have a list of stuff they manufacture.
 
 
 Order
@@ -62,12 +79,20 @@ Order
 | complete | Order complete or not |
 
 
+Each order can be identified with it's unique ID. It has stuff which is the list of all items in that order. It has the details of when the order was shipped and whether the order is deliverd or not.
+
+
 Cart
 
 | PARAMETERS | DESCRIPTION |
 | ------------- | ------------- |
 | id | ID of the Cart |
 | stuff | Items in the Cart |
+
+
+Cart has an ID. It is linked to Order and Customer. Each Order has one cart and each customer has a cart. A cart is
+
+
 
 
 METHODS:
@@ -88,19 +113,27 @@ METHODS:
 | GET  | /Customer/{id}  | Fetch Customer details by ID |
 | PUT  | /Customer/{id}  | Update Customer details by ID |
 | DELETE  | /Customer/{id}  | Remove Customer account by ID |
+| GET | /Customer/{id}/order | Fetch all Orders of a Customer by ID |
 | GET  | /Seller  | Fetch all Sellers |
 | POST  | /Seller  | Add a Seller |
 | GET  | /Seller/{id}  | Get Seller details by ID |
 | PUT  | /Seller/{id}  | Update Seller detail by ID |
 | DELETE  | /Seller/{id}  | Remove Seller by ID |
+| GET | /Seller/{id}/stuff | Fetch all items sold by a Seller by ID |
 | GET  | /Brand  | Fetch all Brands |
 | POST  | /Brand  | Add a new Brand |
 | GET  | /Brand/{id}  | Fetch Brand details by ID |
 | PUT  | /Brand/{id}  | Update Brand details by ID |
 | DELETE  | /Brand/{id}  | Remove Brand by ID |
+| GET | /Brand/{id}/stuff | Fetch all items manufactured by a Brand by ID |
 | GET  | /Order  | Fetch all Orders |
 | POST  | /Order  | Add a new Order |
 | GET  | /Order/id  | Fetch Orders based on a query |
 | GET  | /Order/{id}  | Fetch Order details by ID |
 | PUT  | /Order/{id}  | Update Order details by ID |
 | DELETE  | /Order/{id}  | Delete Order by ID |
+| GET | /Order/{id}/stuff | Fetch all items from a Order by ID |
+| GET | /* | Handle all Invalid URL's of GET|
+| PUT | /* | Handle all Invalid URL's of PUT |
+| POST | /* | Handle all Invalid URL's of POST |
+| DELETE | /* | Handle all Invalid URL's of DELETE |
